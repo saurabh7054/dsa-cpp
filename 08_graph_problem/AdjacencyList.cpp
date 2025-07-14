@@ -2,48 +2,32 @@
 #include <vector>
 using namespace std;
 
-// Function to create the graph
-void createAdjList(vector<int> adjList[], int edges) {
-   cout << "Enter " << edges << " edges (u v):" << endl;
-   for (int i = 0; i < edges; i++) {
-      int u, v;
-      cin >> u >> v;
-
-      // Undirected graph
-      adjList[u].push_back(v);
-      adjList[v].push_back(u);
-
-      // For directed graph, comment out: adjList[v].push_back(u);
-   }
+void addEdge(vector<vector<int>> &adj, int u, int v) {
+   adj[u].push_back(v);
+   adj[v].push_back(u);
 }
-
-// Function to print the graph
-void printAdjList(vector<int> adjList[], int nodes) {
-   cout << "\nAdjacency List:" << endl;
-   for (int i = 0; i < nodes; i++) {
+void printAdjList(const vector<vector<int>> &adj) {
+   cout << "\nAdjacency List:\n";
+   for (int i = 0; i < adj.size(); i++) {
       cout << i << ": ";
-      for (int neighbor : adjList[i]) {
+      for (int neighbor : adj[i]) {
          cout << neighbor << " ";
       }
       cout << endl;
    }
 }
-
 int main() {
-   int nodes, edges;
-   cout << "Enter number of nodes: ";
-   cin >> nodes;
-   
+   int n, m;
    cout << "Enter number of nodes and edges: ";
-   cin >>edges;
+   cin >> n >> m;
+   vector<vector<int>> adj(n);
 
-
-   // Declare adjacency list
-   vector<int> adjList[nodes];
-
-   // Function calls
-   createAdjList(adjList, edges);
-   printAdjList(adjList, nodes);
-
+   cout << "Enter all edges (u v):\n";
+   for (int i = 0; i < m; i++) {
+      int u, v;
+      cin >> u >> v;
+      addEdge(adj, u, v);
+   }
+   printAdjList(adj);
    return 0;
 }
